@@ -37,7 +37,7 @@ function App() {
 
   return (
     <div className="cine-container">
-      <h1>🎬 CineTix CI/CD</h1>
+      <h1>🎬 CineSystem CI/CD</h1>
       <div className="pantalla">PANTALLA</div>
       
       <div className="sala">

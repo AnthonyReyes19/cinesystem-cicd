@@ -36,7 +36,7 @@ body {
 }
 
 .movie-card:hover {
-  transform: translateY(-10px); /* Efecto de flotar al pasar el mouse */
+  transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(0,0,0,0.2);
 }
 
@@ -129,7 +129,7 @@ body {
   cursor: pointer;
 }
 
-/* --- SALA DE CINE (DISEÑO TIPO PRIMERA FOTO) --- */
+/* --- SALA DE CINE  --- */
 .cine-container {
   background-color: white;
   max-width: 800px;
@@ -165,14 +165,14 @@ body {
   margin: 0 auto;
 }
 
-/* Estilo de cada asiento (Como la foto 1) */
+/* Estilo de cada asiento */
 .asiento {
   height: 40px;
   border-radius: 8px 8px 12px 12px; /* Forma de butaca */
   border: none;
   font-weight: bold;
   cursor: pointer;
-  background-color: #e0e0e0; /* Gris por defecto (Libre) */
+  background-color: #e0e0e0; /* Gris por defecto */
   color: #555;
   transition: all 0.2s;
 }
@@ -182,7 +182,7 @@ body {
   transform: scale(1.1);
 }
 
-/* Asiento Seleccionado (Amarillo/Dorado como foto 1) */
+/* Asiento Seleccionado (Amarillo/Dorado) */
 .asiento.seleccionado {
   background-color: #fbc02d; 
   color: black;

@@ -1,33 +1,26 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { calcularTotal, puedeSeleccionar } from '../bookingLogic';
+// OJO AQUÍ: Importamos la función de descuento
+import { calcularSubtotal, calcularDescuento, puedeSeleccionar } from '../bookingLogic'; 
 import '../App.css';
 
 function Sala() {
   const location = useLocation();
   const navigate = useNavigate();
   
-  // Recuperamos los datos que enviamos desde el Home
-  // Si alguien entra directo por URL, ponemos valores por defecto
   const { titulo, tipoSala, precioTicket } = location.state || { 
-    titulo: "Película Desconocida", 
-    tipoSala: "General", 
-    precioTicket: 5 
+    titulo: "Película", tipoSala: "General", precioTicket: 5 
   };
 
+  const [seleccionados, setSeleccionados] = useState([]);
   const [asientos] = useState(
     Array.from({ length: 30 }, (_, i) => ({
-      id: i,
-      numero: i + 1,
-      ocupado: Math.random() < 0.2
+      id: i, numero: i + 1, ocupado: Math.random() < 0.2
     }))
   );
 
-  const [seleccionados, setSeleccionados] = useState([]);
-
   const toggleAsiento = (asiento) => {
     if (asiento.ocupado) return;
-
     const yaEsta = seleccionados.find(s => s.id === asiento.id);
     if (yaEsta) {
       setSeleccionados(seleccionados.filter(s => s.id !== asiento.id));
@@ -40,17 +33,20 @@ function Sala() {
     }
   };
 
-  const total = calcularTotal(seleccionados, precioTicket);
+  // --- AQUI SE APLICA EL DESCUENTO ---
+  const subtotal = calcularSubtotal(seleccionados, precioTicket);
+  const totalPagar = calcularDescuento(subtotal, seleccionados.length);
+  
+  // Si el total bajó, es porque hubo descuento
+  const hayDescuento = subtotal !== totalPagar; 
 
   return (
     <div className="cine-container">
-      <button onClick={() => navigate('/')}>⬅ Volver a Cartelera</button>
+      <button onClick={() => navigate('/')}>⬅ Volver</button>
       
       <h1>{titulo}</h1>
-      <h3 style={{ color: tipoSala.includes('VIP') ? 'gold' : 'gray' }}>
-        {tipoSala} - Precio: ${precioTicket}
-      </h3>
-
+      <p>{tipoSala} (${precioTicket})</p>
+      
       <div className="pantalla">PANTALLA</div>
       
       <div className="sala">
@@ -74,11 +70,14 @@ function Sala() {
       </div>
 
       <div className="resumen">
-        <p>Boletos: {seleccionados.length}</p>
-        <h2>Total: ${total}</h2>
-        <button className="btn-pagar" disabled={seleccionados.length === 0}>
-            Confirmar Compra
-        </button>
+        <p>Subtotal: ${subtotal}</p>
+
+        {/* Mensaje verde si hay descuento */}
+        {hayDescuento && (
+            <p className="promo">✨ ¡Descuento 10% aplicado!</p>
+        )}
+        
+        <h2>Total: ${totalPagar.toFixed(2)}</h2>
       </div>
     </div>
   )

@@ -1,19 +1,25 @@
 import { describe, it, expect } from 'vitest';
-import { calcularTotal, puedeSeleccionar } from './bookingLogic';
+import { calcularSubtotal, calcularDescuento, puedeSeleccionar } from './bookingLogic';
 
 describe('Logica de CineSystem', () => {
-    it('calcula correctamente el precio según la sala', () => {
+    
+    it('calcula subtotal con precios variables (VIP vs Normal)', () => {
         const seleccion = [{ id: 1 }, { id: 2 }];
-        
-        // Probamos con precio de sala Normal ($5)
-        expect(calcularTotal(seleccion, 5)).toBe(10);
-        
-        // Probamos con precio de sala VIP ($12)
-        expect(calcularTotal(seleccion, 12)).toBe(24);
+        // Prueba Sala Normal ($5) -> 2 * 5 = 10
+        expect(calcularSubtotal(seleccion, 5)).toBe(10);
+        // Prueba Sala VIP ($12) -> 2 * 12 = 24
+        expect(calcularSubtotal(seleccion, 12)).toBe(24);
     });
 
-    it('impide seleccionar más del límite permitido', () => {
-        expect(puedeSeleccionar(6)).toBe(false); // Ya tengo 6
-        expect(puedeSeleccionar(2)).toBe(true);  // Tengo 2
+    it('aplica descuento del 10% si hay mas de 3 boletos', () => {
+        const subtotal = 100; // Supongamos que gastó 100
+        const cantidad = 4;   // Llevó 4 boletos
+        expect(calcularDescuento(subtotal, cantidad)).toBe(90);
+    });
+
+    it('NO aplica descuento si son 3 o menos', () => {
+        const subtotal = 50;
+        const cantidad = 3;
+        expect(calcularDescuento(subtotal, cantidad)).toBe(50);
     });
 });

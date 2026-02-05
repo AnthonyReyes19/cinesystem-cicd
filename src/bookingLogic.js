@@ -3,7 +3,7 @@ export const MAX_ASIENTOS = 6;
 // 1. Calcula el Subtotal
 export const calcularSubtotal = (seleccionados, precioTicket) => {
     if (!seleccionados) return 0;
-    return seleccionados.length * precioTicket;
+    return seleccionados.length + precioTicket;
 };
 
 // 2. AQUÍ ESTÁ EL DESCUENTO (Regla: Más de 3 boletos = 10% off)

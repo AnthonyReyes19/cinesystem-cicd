@@ -32,19 +32,32 @@ function Sala() {
     }
   };
 
-  // --- AQUI SE APLICA EL DESCUENTO ---
+  // --- DESCUENTO ---
   const subtotal = calcularSubtotal(seleccionados, precioTicket);
   const totalPagar = calcularDescuento(subtotal, seleccionados.length);
   
   // Si el total bajó, es porque hubo descuento
   const hayDescuento = subtotal !== totalPagar; 
 
+  // Función para finalizar la compra
+  const confirmarCompra = () => {
+    navigate('/ticket', {
+      state: {
+        titulo: titulo,
+        seleccionados: seleccionados, // Se envia la lista de asientos
+        total: totalPagar.toFixed(2),
+        tipoSala: tipoSala
+      }
+    });
+  };
+
   return (
     <div className="cine-container">
-      <button onClick={() => navigate('/')}>⬅ Volver</button>
-      
+      <button className="btn-cerrar" onClick={() => navigate('/')} style={{float: 'left'}}>← Volver</button>
       <h1>{titulo}</h1>
-      <p>{tipoSala} (${precioTicket})</p>
+      <h3 style={{ color: '#555', marginTop: '0' }}>
+        {tipoSala}: ${precioTicket}
+      </h3>
       
       <div className="pantalla">PANTALLA</div>
       
@@ -77,6 +90,16 @@ function Sala() {
         )}
         
         <h2>Total: ${totalPagar.toFixed(2)}</h2>
+
+        <br />
+        <button 
+            className="btn-pagar" 
+            disabled={seleccionados.length === 0}
+            onClick={confirmarCompra}
+        >
+            Confirmar Compra
+        </button>
+
       </div>
     </div>
   )

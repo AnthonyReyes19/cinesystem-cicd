@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-// OJO AQUÍ: Importamos la función de descuento
 import { calcularSubtotal, calcularDescuento, puedeSeleccionar } from '../bookingLogic'; 
 import '../App.css';
 

@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
-import Sala from './pages/sala';
+import Sala from './pages/SalaCine';
 import './App.css';
 
 function App() {

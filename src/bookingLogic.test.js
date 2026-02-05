@@ -22,4 +22,8 @@ describe('Logica de CineSystem', () => {
         const cantidad = 3;
         expect(calcularDescuento(subtotal, cantidad)).toBe(50);
     });
+
+    it('permite seleccionar asientos dentro del limite', () => {
+        expect(puedeSeleccionar(1)).toBe(true);
+    });
 });

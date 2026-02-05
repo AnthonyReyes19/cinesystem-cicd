@@ -1,4 +1,4 @@
-export const MAX_ASIENTOS = 0;
+export const MAX_ASIENTOS = 6;
 
 // 1. Calcula el Subtotal
 export const calcularSubtotal = (seleccionados, precioTicket) => {

@@ -6,7 +6,7 @@ export const calcularSubtotal = (seleccionados, precioTicket) => {
     return seleccionados.length * precioTicket;
 };
 
-// 2. AQUÍ ESTÁ EL DESCUENTO (Regla: Más de 3 boletos = 10% off)
+// 2. DESCUENTO (Regla: Más de 3 boletos = 10% off)
 export const calcularDescuento = (subtotal, cantidad) => {
     if (cantidad > 3) {
         return subtotal * 0.90; // Multiplicar por 0.90 es restar el 10%
